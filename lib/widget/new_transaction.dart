@@ -157,12 +157,13 @@ class _NewTransactionState extends State<NewTransaction> {
                   height: 10, // 30 default value
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Text(
                       selectedDate == null
-                          ? 'You did\'nt select any date'
-                          : 'Date Selected: ${DateFormat.yMMMEd().format(selectedDate!)}',
+                          ? 'Date not selected yet!'
+                          //: 'Date Selected: ${DateFormat.yMMMEd().format(selectedDate!)}',
+                          : '${DateFormat.yMMMEd().format(selectedDate!)}',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'KaushanScript',
@@ -171,9 +172,9 @@ class _NewTransactionState extends State<NewTransaction> {
                         fontSize: 20,
                       ),
                     ),
-                    const SizedBox(width: 30
-                        // height: double.infinity,//render overflowed by infinity
-                        ),
+                    // const SizedBox(width: 30
+                    //     // height: double.infinity,//render overflowed by infinity
+                    //     ),
                     MaterialButton(
                       onPressed: presentDatePicker,
                       //height: 50,

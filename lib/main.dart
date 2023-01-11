@@ -3,8 +3,6 @@ import 'package:expense_planner/widget/transaction_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import 'model/transaction.dart';
 import 'widget/chart.dart';
 
@@ -36,7 +34,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.purple,
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           //backgroundColor: Colors.white,
           backgroundColor: Colors.purple,
           elevation: 0,
@@ -59,13 +57,13 @@ class _MyAppState extends State<MyApp> {
         //     ),
       ),
       title: 'FlutterApp',
-      home: _MyHomePage(),
+      home: const _MyHomePage(),
     );
   }
 }
 
 class _MyHomePage extends StatefulWidget {
-  const _MyHomePage({super.key});
+  const _MyHomePage();
 
   @override
   State<_MyHomePage> createState() => _MyHomePageState();
@@ -124,7 +122,7 @@ class _MyHomePageState extends State<_MyHomePage> {
   List<Transaction> get _getRecentTransaction {
     return _listTransaction.where((txElement) {
       return txElement.dateTime.isAfter(DateTime.now().subtract(
-        Duration(days: 7),
+        const Duration(days: 7),
       ));
     }).toList();
   }
@@ -138,10 +136,12 @@ class _MyHomePageState extends State<_MyHomePage> {
         return GestureDetector(
           onTap: () {},
           behavior: HitTestBehavior.opaque,
-          child: Container(
-            margin: EdgeInsets.all(5),
-            child: NewTransaction(
-              addNewTransactionButton: _addNewTransactionButton,
+          child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.all(5),
+              child: NewTransaction(
+                addNewTransactionButton: _addNewTransactionButton,
+              ),
             ),
           ),
         );
@@ -155,7 +155,7 @@ class _MyHomePageState extends State<_MyHomePage> {
       appBar: AppBar(
         //foregroundColor: Colors.purple,
         //titleTextStyle: const TextStyle(),
-        title: Text(
+        title: const Text(
           'Expense Planner',
           // style: TextStyle(
           //   color: Colors.purple,
@@ -163,95 +163,94 @@ class _MyHomePageState extends State<_MyHomePage> {
           // ),
         ),
         actions: [
-          Container(
-            //margin: EdgeInsets.fromLTRB(0, 0, 10, 10),
-            child: IconButton(
-              onPressed: () {
-                startAddNewTransaction(context);
-              },
-              icon: Icon(
-                Icons.add,
-                color: Colors.purple,
-                //size: 40,
-              ),
-              //style:
-              // style: ButtonStyle(
-              //   textStyle: MaterialStatePropertyAll(
-              //     TextStyle(
-              //       fontWeight: FontWeight.bold,
-              //     ),
-              //   ),
-              // ),
+          IconButton(
+            onPressed: () {
+              startAddNewTransaction(context);
+            },
+            icon: const Icon(
+              Icons.add,
+              color: Colors.purple,
+              //size: 40,
             ),
+            //style:
+            // style: ButtonStyle(
+            //   textStyle: MaterialStatePropertyAll(
+            //     TextStyle(
+            //       fontWeight: FontWeight.bold,
+            //     ),
+            //   ),
+            // ),
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            color: Colors.purple,
-            width: double.infinity,
-            height: 180,
-            child: Chart(listTransaction: _getRecentTransaction),
-          ),
-          //const UserTransaction(),
-          _listTransaction.isEmpty
-              ? Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 30,
-                    ),
-                    Text(
-                      'You did\'nt buy any product yet!!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'KaushanScript',
-                        fontWeight: FontWeight.bold,
-                        color: Colors.purple,
-                        fontSize: 30,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              color: Colors.purple,
+              width: double.infinity,
+              height: 180,
+              child: Chart(listTransaction: _getRecentTransaction),
+            ),
+            //const UserTransaction(),
+            _listTransaction.isEmpty
+                ? Column(
+                    children: <Widget>[
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 30,
                       ),
-                    ),
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 10,
-                    ),
-                    Container(
-                      height: 300,
-                      width: 300,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5), //20
-                        ),
-                        border: Border.all(
+                      const Text(
+                        'You did\'nt buy any product yet!!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'KaushanScript',
+                          fontWeight: FontWeight.bold,
                           color: Colors.purple,
-                          width: 3,
-                        ),
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/Looney_Tunes.gif'),
-                          // image: AssetImage('assets/images/fuel_empty.gif'),
-                          //image: AssetImage('assets/images/empty_products.png'),
-                          //fit: BoxFit.cover,
-                          //alignment: Alignment.center,
+                          fontSize: 30,
                         ),
                       ),
-                    ),
-                  ],
-                )
-              : SingleChildScrollView(
-                  child: TransactionList(
-                      listTransaction: _listTransaction,
-                      deleteTransaction: _deleteTransaction),
-                )
-        ],
+                      const SizedBox(
+                        width: double.infinity,
+                        height: 10,
+                      ),
+                      Container(
+                        height: 300,
+                        width: 300,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(5), //20
+                          ),
+                          border: Border.all(
+                            color: Colors.purple,
+                            width: 3,
+                          ),
+                          image: const DecorationImage(
+                            image: AssetImage('assets/images/Looney_Tunes.gif'),
+                            // image: AssetImage('assets/images/fuel_empty.gif'),
+                            //image: AssetImage('assets/images/empty_products.png'),
+                            //fit: BoxFit.cover,
+                            //alignment: Alignment.center,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                : SingleChildScrollView(
+                    child: TransactionList(
+                        listTransaction: _listTransaction,
+                        deleteTransaction: _deleteTransaction),
+                  )
+          ],
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Container(
         width: 50,
         height: 50,
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: FloatingActionButton(
           onPressed: () {
             startAddNewTransaction(context);
@@ -259,7 +258,7 @@ class _MyHomePageState extends State<_MyHomePage> {
           elevation: 10,
           shape: BeveledRectangleBorder(
             borderRadius: BorderRadius.circular(10), //10
-            side: BorderSide(
+            side: const BorderSide(
               width: 2,
               style: BorderStyle.solid,
               color: Colors.purple,
@@ -275,7 +274,7 @@ class _MyHomePageState extends State<_MyHomePage> {
             // width: double.infinity,
             // height: double.infinity,
             alignment: Alignment.center,
-            child: Icon(
+            child: const Icon(
               Icons.add,
               color: Colors.purple,
               size: 30,

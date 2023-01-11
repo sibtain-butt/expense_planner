@@ -17,7 +17,7 @@ class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 380,
+      height: 460, //380 default value
       alignment: Alignment.center,
       decoration: BoxDecoration(
         //borderRadius: BorderRadius.all(Radius.circular(1)), //default value 5
@@ -34,8 +34,9 @@ class TransactionList extends StatelessWidget {
             elevation: 6,
             margin: EdgeInsets.all(10),
             child: ListTile(
+              contentPadding: EdgeInsets.fromLTRB(3, 0, 3, 0),
               leading: Container(
-                width: 170, //200 is max limit good size & 170 is perfect
+                width: 100, //200 is max limit good size & 170 is perfect
                 height: 100, // 100 is good
                 // margin: const EdgeInsets.symmetric(
                 //   vertical: 10,
@@ -45,17 +46,30 @@ class TransactionList extends StatelessWidget {
                 // // width: 100,
                 // // height: 50,
                 alignment: Alignment.center,
+
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(5)),
                   border: Border.all(
                     color: Colors.purple,
-                    width: 3,
+                    width: 2,
                   ),
                 ),
+
+                // leading: Container(
+                //
+                //   padding: const EdgeInsets.all(2),
+                //
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.all(Radius.circular(5)),
+                //     border: Border.all(
+                //       color: Colors.purple,
+                //       width: 2,
+                //     ),
+                //   ),
                 child: FittedBox(
-                  //fit: BoxFit.contain,
                   child: Text(
-                    '\$${listTransaction[index].amount.toStringAsFixed(2)}',
+                    // '\$${listTransaction[index].amount.toStringAsFixed(2)}',
+                    '\$${listTransaction[index].amount.toStringAsFixed(0)}',
                     style: const TextStyle(
                       color: Colors.purple,
                       fontWeight: FontWeight.bold,
@@ -87,6 +101,8 @@ class TransactionList extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
+                alignment: Alignment.centerRight,
+                padding: EdgeInsets.only(left: 10),
                 onPressed: () => deleteTransaction(listTransaction[index].id),
                 icon: Icon(
                   Icons.delete,
